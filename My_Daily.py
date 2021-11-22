@@ -11,12 +11,7 @@ url_2="https://weather.com/en-IN/weather/today/l/9.97,76.31?par=google"
 def covid():
     r = requests.get(url_1)
     soup1 =BeautifulSoup(r.content, 'html.parser')
-
-
     total=soup1.find_all(class_='UvMayb')
-    # print(total.findAll(text=True))
-    #print(total[1].findAll(text=True),total[0].findAll(text=True))
-
     print("   -------- Covid19 update ----------  ")
     print()
     print("Total cases in India: ",total[0].findAll(text=True))
@@ -26,16 +21,6 @@ def covid():
     print("Total vaccine doses given: ",total[2].findAll(text=True)," ,  Fully vaccinated people",total[3].findAll(text=True))
     print("\n")
 
-    # tabl=soup.find(class_='pH8O4c')
-    # country=tabl.find('tbody')
-    # state=country.find_all(id='pcAJd')
-    # print(state)
-    # for item in state:
-    #     print(item.findAll(text=True))
-    #     print()
-
-    # state=soup.find_all(id='/m/0byh8j')
-    # print(state)
     #      -----------Covid Report -------end------------------
 
 
