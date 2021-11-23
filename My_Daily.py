@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 from datetime import date
+import calendar
 
 
 
@@ -14,14 +15,24 @@ def covid():
     total=soup1.find_all(class_='UvMayb')
     print("   -------- Covid19 update ----------  ")
     print()
-    print("Total cases in India: ",total[0].findAll(text=True))
+    print("Total cases in India: ",total[0].get_text())
     print()
-    print("Total Deaths in India: ",total[1].findAll(text=True))
+    print("Total Deaths in India: ",total[1].get_text())
     print()
-    print("Total vaccine doses given: ",total[2].findAll(text=True)," ,  Fully vaccinated people",total[3].findAll(text=True))
+    print("Total vaccine doses given: ",total[2].get_text()," ,  Fully vaccinated people",total[3].get_text())
     print("\n")
 
     #      -----------Covid Report -------end------------------
+
+def part(n):
+    if n<12 and n>3:
+        return("Morning")
+    elif n<17 and n>=12:
+        return("Afternoon")
+    elif n>=17 and n<20:
+        return("Evening")
+    elif n>=20 and n<=24:
+        return("Night")
 
 
 #        ----------Weather Report-----------
@@ -37,21 +48,21 @@ def weather():
 
     print("\n      ---- Today's Weather ----")
     print()
-    print("Current Temperature in Kochi: ",temp.findAll(text=True))
+    print("Current Temperature in Kochi: ",temp.get_text())
     print()
-    print("               - - Sky: ",detail.findAll(text=True))
+    print("               - - Sky:",detail.get_text())
     print()
-    print(" Precipitation Today ",prep_detail.findAll(text=True),"\n")
+    print(" Precipitation Today ",prep_detail.get_text(),"\n")
 
     full_detail=soup2.find(class_='WeatherTable--columns--OWgEl WeatherTable--wide--3dFXu')
     day_part=full_detail.find_all(class_='Column--column--1p659')
-    part=['Morning','Afternoon','Evening','Night']
+    part=['Morning','Afternoon','Evening','Overnight']
     for i in range(0,4):
         part_1_temp=day_part[i].find(class_='Column--temp--5hqI_')
         part_1_prep=day_part[i].find(class_='Column--precip--2ck8J')
         print()
-        print("Today",part[i],"-> Temperature:",part_1_temp.findAll(text=True),"C")
-        print("               -> Precipitation:",part_1_prep.findAll(text=True))
+        print("Today",part[i],"-> Temperature:",part_1_temp.get_text(),"C")
+        print("               -> Precipitation:",(part_1_prep.span).get_text())
         print()
 
 #- --------------------Weather Report---------end-----------
@@ -59,11 +70,13 @@ def weather():
 # Main
 
 if __name__=="__main__":
-    print("\n\n")
-    print("    ---- Hey Good Morning Anshuman -----")
-    print()
     today = date.today()
-    print("Date: ",today.strftime("%B %d, %Y"))
+    now = datetime.now()
+    d=part(now.hour)
+    print("\n\n")
+    print("    ---- Hey Good",d,"Anshuman -----")
+    print()
+    print("Date: ",today.strftime("%B %d, %Y"),"",calendar.day_name[today.weekday()])
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     print("Current Time =", current_time)
