@@ -29,7 +29,7 @@ def weather():
     r = requests.get(url_2)
     soup2 =BeautifulSoup(r.content, 'html.parser')
 
-    temp_detail=soup2.find(class_='card Card--cardPadded--2oS21 Card--card--HiWPW CurrentConditions--card--3F6c0 gradients--cloudyFoggyDay-contrast--3knbX CurrentConditions--gradient--29OMY')
+    temp_detail=soup2.find(class_='CurrentConditions--CurrentConditions--1swR9')
     temp=temp_detail.find(class_='CurrentConditions--tempValue--3a50n')
     detail=temp_detail.find(class_='CurrentConditions--phraseValue--2Z18W')
     prep_detail=temp_detail.find(class_='CurrentConditions--precipValue--3nxCj')
